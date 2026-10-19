@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Risograph 3D Studio — TouchDesigner Engine</title>
+    <link rel="stylesheet" href="/src/style.css" />
+
+    <!-- Google Fonts: Plus Jakarta Sans & Space Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- MediaPipe Hands & Camera Utils CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <!-- App Header Navbar -->
+    <header class="app-header">
+      <div class="brand-container">
+        <div class="brand-badge">PRO</div>
+        <div class="brand-title-group">
+          <h1 class="brand-title">RISOGRAPH 3D STUDIO</h1>
+          <p class="brand-subtitle">MediaPipe TouchDesigner Real-Time Engine</p>
+        </div>
+      </div>
+
+      <div class="header-status-group">
+        <div id="live-badge" class="status-pill status-ready">
+          <span class="status-dot"></span>
+          <span id="txt-status">WEBCAM READY</span>
+        </div>
+        <button id="btn-snapshot" class="btn btn-secondary">
+          <span>📸</span> Capture PNG
+        </button>
+        <button id="btn-record-video" class="btn btn-accent">
+          <span>🔴</span> Start Record
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="studio-workspace">
+      <!-- Left / Center: Main Camera Viewport Card -->
+      <section class="viewport-section">
+        <div class="viewport-frame">
+          <video id="webcam-video" class="webcam-hidden" playsinline></video>
+          <canvas id="portal-canvas" class="portal-canvas" width="1280" height="720"></canvas>
+
+          <!-- Top Overlay HUD Badge -->
+          <div class="viewport-hud-top">
+            <span class="hud-pill">FPS: <strong id="val-fps">60</strong></span>
+            <span class="hud-pill">HANDS: <strong id="val-hands">0 / 2 REQUIRED</strong></span>
+          </div>
+        </div>
+
+        <!-- Viewport Quick Actions Toolbar -->
+        <div class="viewport-toolbar">
+          <button id="btn-mode-toggle" class="btn btn-ghost">
+            <span>🎥</span> Camera / Simulator Mode
+          </button>
+          <button id="btn-tech-hud" class="btn btn-ghost">
+            <span>⚡</span> TouchDesigner Mesh HUD
+          </button>
+        </div>
+      </section>
+
+      <!-- Right: Premium Control Sidebar -->
+      <aside class="studio-sidebar">
+        <!-- Visual Style Presets Panel -->
+        <div class="panel-card">
+          <div class="panel-header">
+            <h2 class="panel-title">Visual Style Presets</h2>
+            <span class="panel-tag">TouchDesigner FX</span>
+          </div>
+
+          <div class="preset-grid">
+            <button class="preset-card active" data-preset="RISOGRAPH_POP_ART">
+              <div class="preset-indicator riso-indicator"></div>
+              <div class="preset-info">
+                <span class="preset-name">Risograph Pop-Art</span>
+                <span class="preset-desc">Prussian Blue, Emerald Green & Yellow</span>
+              </div>
+            </button>
+
+            <button class="preset-card" data-preset="CYANOTYPE_BLUEPRINT">
+              <div class="preset-indicator cyanotype-indicator"></div>
+              <div class="preset-info">
+                <span class="preset-name">Cyanotype Blueprint</span>
+                <span class="preset-desc">Deep Indigo & High-Contrast White</span>
+              </div>
+            </button>
+
+            <button class="preset-card" data-preset="THERMAL_SPECTRUM">
+              <div class="preset-indicator thermal-indicator"></div>
+              <div class="preset-info">
+                <span class="preset-name">Thermal Solarized</span>
+                <span class="preset-desc">Acid Yellow & Thermal Spectrum</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Shader Parameters Panel -->
+        <div class="panel-card">
+          <div class="panel-header">
+            <h2 class="panel-title">Engine Fine-Tuning</h2>
+            <span class="panel-tag">Controls</span>
+          </div>
+
+          <div class="control-stack">
+            <div class="control-item">
+              <div class="control-label">
+                <span>Stippling Red Dot Density</span>
+                <strong id="val-dots">14 px</strong>
+              </div>
+              <input type="range" id="slider-dots" class="range-slider" min="6" max="30" value="14" />
+            </div>
+
+            <div class="control-item">
+              <div class="control-label">
+                <span>Motion Spring Physics</span>
+                <strong id="val-smooth">45%</strong>
+              </div>
+              <input type="range" id="slider-smooth" class="range-slider" min="10" max="80" value="45" />
+            </div>
+
+            <div class="control-item">
+              <div class="control-label">
+                <span>Paper Flap Depth</span>
+                <strong id="val-flap">36 px</strong>
+              </div>
+              <input type="range" id="slider-flap" class="range-slider" min="15" max="60" value="36" />
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="app-footer">
+      <span>RISOGRAPH 3D STUDIO v2.0 • TouchDesigner & MediaPipe Computer Vision</span>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
